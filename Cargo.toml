@@ -4,5 +4,6 @@ version = "0.1.0"
 authors = ["Abraham Toriz Cruz <a.wonderful.code@gmail.com>"]
 
 [dependencies]
-rocket = "0.2.6"
-rocket_codegen = "0.2.6"
+rocket = "0.2.8"
+rocket_codegen = "0.2.8"
+rocket_contrib = "0.2.8"

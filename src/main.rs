@@ -1,5 +1,6 @@
 #![feature(plugin)]
 #![plugin(rocket_codegen)]
+#![feature(custom_derive)]
 
 extern crate rocket;
 
@@ -7,9 +8,22 @@ extern crate rocket;
 
 use rocket_contrib::{JSON, Value};
 
-#[get("/")]
-fn index() -> JSON<Value> {
-    return JSON(json!({ "ok": true}));
+#[derive(FromForm)]
+struct IndexQuery {
+    id: String
+}
+
+#[get("/?<query>")]
+fn index(query: IndexQuery) -> JSON<Value> {
+    return JSON(json!({
+        "id": query.id,
+        "data": {
+            "el_texto": "a la grande le puse cuca",
+        },
+        "params": {
+            "param1": 345,
+        },
+    }));
 }
 
 #[get("/<name>")]

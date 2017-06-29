@@ -8,22 +8,11 @@ extern crate rocket;
 
 use rocket_contrib::{JSON, Value};
 
-#[derive(FromForm)]
-struct IndexQuery {
-    id: String
-}
+mod bots;
 
-#[get("/?<query>")]
-fn index(query: IndexQuery) -> JSON<Value> {
-    return JSON(json!({
-        "id": query.id,
-        "data": {
-            "el_texto": "a la grande le puse cuca",
-        },
-        "params": {
-            "param1": 345,
-        },
-    }));
+#[get("/")]
+fn index() -> JSON<Value> {
+    return JSON(json!({ "ok": true}));
 }
 
 #[get("/<name>")]

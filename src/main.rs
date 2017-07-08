@@ -6,9 +6,12 @@ extern crate rocket;
 
 #[macro_use] extern crate rocket_contrib;
 
-use rocket_contrib::{JSON, Value};
-
 mod bots;
+
+use rocket_contrib::{JSON, Value};
+use std::collections::HashMap;
+
+use bots::Bot;
 
 #[get("/")]
 fn index() -> JSON<Value> {
@@ -23,6 +26,8 @@ fn botname(name: &str) -> JSON<Value> {
 }
 
 fn main() {
+    let mut bots:HashMap<&str, Bot> = HashMap::new();
+
     rocket::ignite()
         .mount("/", routes![index, botname])
         .launch();

@@ -1,9 +1,7 @@
-trait Bot {
-    fn say_hello(&self) {
-        return json!({
-            "name": self.name,
-        });
-    }
+use rocket_contrib::Value;
+
+pub trait Bot {
+    fn say_hello(&self) -> Value;
 }
 
 struct EqxBot {
@@ -11,6 +9,11 @@ struct EqxBot {
 }
 
 impl Bot for EqxBot {
+    fn say_hello(&self) -> Value {
+        return json!({
+            "name": self.name,
+        });
+    }
 }
 
 // TESTS

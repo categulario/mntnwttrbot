@@ -4,7 +4,7 @@ pub trait Bot {
     fn say_hello(&self) -> Value;
 }
 
-struct EqxBot {
+pub struct EqxBot {
     pub name: String
 }
 

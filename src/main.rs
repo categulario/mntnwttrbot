@@ -11,7 +11,7 @@ mod bots;
 use rocket_contrib::{JSON, Value};
 use std::collections::HashMap;
 
-use bots::Bot;
+use bots::{Bot, EqxBot};
 
 #[get("/")]
 fn index() -> JSON<Value> {
@@ -26,7 +26,12 @@ fn botname(name: &str) -> JSON<Value> {
 }
 
 fn main() {
-    let mut bots:HashMap<&str, Bot> = HashMap::new();
+    let eqxbot = EqxBot{
+        name: "eqxbot".to_string()
+    };
+    let mut bots:HashMap<&str, &Bot> = HashMap::new();
+
+    bots.insert("eqxbot", &eqxbot);
 
     rocket::ignite()
         .mount("/", routes![index, botname])

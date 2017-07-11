@@ -6,24 +6,16 @@ extern crate rocket;
 
 #[macro_use] extern crate rocket_contrib;
 
+mod bots;
+
 use rocket_contrib::{JSON, Value};
+use std::collections::HashMap;
 
-#[derive(FromForm)]
-struct IndexQuery {
-    id: String
-}
+use bots::{Bot, EqxBot};
 
-#[get("/?<query>")]
-fn index(query: IndexQuery) -> JSON<Value> {
-    return JSON(json!({
-        "id": query.id,
-        "data": {
-            "el_texto": "a la grande le puse cuca",
-        },
-        "params": {
-            "param1": 345,
-        },
-    }));
+#[get("/")]
+fn index() -> JSON<Value> {
+    return JSON(json!({ "ok": true}));
 }
 
 #[get("/<name>")]
@@ -34,6 +26,13 @@ fn botname(name: &str) -> JSON<Value> {
 }
 
 fn main() {
+    let eqxbot = EqxBot{
+        name: "eqxbot".to_string()
+    };
+    let mut bots:HashMap<&str, &Bot> = HashMap::new();
+
+    bots.insert("eqxbot", &eqxbot);
+
     rocket::ignite()
         .mount("/", routes![index, botname])
         .launch();
